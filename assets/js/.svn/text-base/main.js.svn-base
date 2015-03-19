@@ -1,0 +1,95 @@
+/**
+ *
+ *
+ * @copyright 2010
+ * @author Muhammad Arifin Siregar
+ * @package main
+ * @modified Sep 17, 2010
+ */
+$(function() {
+
+    $('#date').datepicker({
+        showOn: 'button',
+        buttonImage: '/assets/images/calendar.gif',
+        dateFormat: 'yy-mm-dd',
+        buttonImageOnly: true ,
+        altField: '#alternate',
+        altFormat: 'yy MM d'
+    });
+    $('#date').datepicker('option', $.extend({
+        showMonthAfterYear: false
+    },
+    $.datepicker.regional['id']));
+
+    $('#date2').datepicker({
+        showOn: 'button',
+        buttonImage: '/assets/images/calendar.gif',
+        dateFormat: 'yy-mm-dd',
+        buttonImageOnly: true ,
+        altField: '#alternate',
+        altFormat: 'yy MM d'
+    });
+    $('#date2').datepicker('option', $.extend({
+        showMonthAfterYear: false
+    },
+    $.datepicker.regional['id']));
+
+    //confirmation dialog shown when user click on the delete link
+    $('#dialog').dialog({
+        autoOpen: false,
+        width: 270,
+        modal: true,
+        resizable: false,
+        buttons: {
+            "Submit": function() {
+                var link = $(this).data('del-link');
+                $(this).dialog("close");
+                location.href = link;
+            },
+            "Cancel": function() {
+                $(this).dialog("close");
+            }
+        }
+    });
+    // show message box when administrator click on delete link
+    $(".delete").click(function(){
+        var link = $(this).closest('a').attr('href');
+        var index = link.lastIndexOf('/') + 1;
+        id = link.substring(index);
+        $("span#archieve_out_id").html(id);
+        $('#dialog').data('del-link', link).dialog('open');
+        return false;
+    });
+
+    //information dialog
+    $('#info').dialog({
+        autoOpen: false,
+        width: 270,
+        modal: true,
+        resizable: false,
+        buttons: {
+            "OK": function() {
+                $(this).dialog("close");
+            }
+        }
+    });
+
+    $("#save_arsip").click(function(){
+        $("#form_arsip").submit();
+    });
+
+    $("#save_peminjaman").click(function(){
+        $("#form_peminjaman").submit();
+    });
+
+    $("#save_mutasi").click(function(){
+        $("#form_mutasi").submit();
+    });
+
+    $("#save_permohonan").click(function(){
+        $("#form_permohonan").submit();
+    });
+
+});
+
+
