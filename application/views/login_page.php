@@ -5,6 +5,7 @@
 <!-- Basic Page Needs
 ================================================== -->
 <meta charset="utf-8">
+<link rel="icon" href="<?php echo base_url();?>assets/i/fav.png" type="image/png">
 <title>Whistle Blowing System - Login</title>
 <meta name="description" content="">
 <meta name="author" content="">
