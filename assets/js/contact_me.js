@@ -2,6 +2,23 @@ var getUrl = window.location;
 var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
 $(function() {
+    var uploadObj = null;
+    var temp_name = "";
+    $("#dokumen").prop("readonly", true);
+    var uploadObj = $("#fileuploader").uploadFile({
+        url:"assets/upload.php",
+        multiple:true,
+        fileName:"myfile",
+        maxFileCount: 3,
+        onSuccess:function(files,data,xhr){
+            if(temp_name == ""){
+                temp_name = files;
+            }else{
+                temp_name = temp_name +", "+files;
+            }
+            $("#dokumen").val(temp_name);
+        }
+    });
 
     $("input,textarea").jqBootstrapValidation({
         preventSubmit: true,
@@ -49,6 +66,11 @@ $(function() {
 
                     //clear all fields
                     $('#contactForm').trigger("reset");
+                   
+                   resetUpload(uploadObj);
+                   temp_name = "";
+                   
+                   
                 },
                 error: function() {
                     // Fail message
@@ -59,6 +81,9 @@ $(function() {
                     $('#success > .alert-danger').append('</div>');
                     //clear all fields
                     $('#contactForm').trigger("reset");
+                   
+                   resetUpload(uploadObj);
+                   temp_name = "";
                 },
             })
         },
@@ -80,23 +105,14 @@ $('#name').focus(function() {
 });
 
 
-$(document).ready(function(){
-    var temp_name = "";
-    $("#dokumen").prop("readonly", true);
-    $("#fileuploader").uploadFile({
-        url:"assets/upload.php",
-        multiple:true,
-        fileName:"myfile",
-        maxFileCount: 3,
-        onSuccess:function(files,data,xhr){
-            if(temp_name == ""){
-                temp_name = files;
-            }else{
-                temp_name = temp_name +", "+files;                  
-            }
-            $("#dokumen").val(temp_name);
-        }
-                                  
-    });
-});
+function resetUpload(uploadObj){
+    uploadObj.fileCounter = 1;
+    uploadObj.selectedFiles = 0;
+    uploadObj.fCounter = 0; //failed uploads
+    uploadObj.sCounter = 0; //success uploads
+    uploadObj.tCounter = 0; //total uploads
+    $(".ajax-file-upload-statusbar").remove();
+    $(".ajax-file-upload-error").remove();
+    $("#dokumen").val("");
+}
 

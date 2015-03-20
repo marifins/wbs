@@ -367,7 +367,6 @@ juga dapat memberikan penghargaan <i>(reward)</i> <br/>atas tindakan menyelamatk
 
 <div class="form-group">
 <div id="fileuploader" style="color:#fff;">Upload Dokumen</div>
-<div id="fileuploader_message"></div>
 </div>
 
 </div>
